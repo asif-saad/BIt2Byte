@@ -1,109 +1,107 @@
 ﻿using Bit2Byte.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Webgentle.BookStore.Controllers
+namespace Bit2Byte.Controllers
 {
-    public class BookController : Controller
+    public class BookRepository
     {
-        private readonly IBookRepository _bookRepository = null;
-        private readonly ILanguageRepository _languageRepository = null;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public BookController(IBookRepository bookRepository,
-            ILanguageRepository languageRepository,
-            IWebHostEnvironment webHostEnvironment)
+        public List<BookModel> GetAllBooks()
         {
-            _bookRepository = bookRepository;
-            _languageRepository = languageRepository;
-            _webHostEnvironment = webHostEnvironment;
+            return DataSource();
         }
 
-        [Route("all-books")]
-        public async Task<ViewResult> GetAllBooks()
-        {
-            var data = await _bookRepository.GetAllBooks();
 
-            return View(data);
+        public BookModel GetBookById(int id) => DataSource().FirstOrDefault(x => x.Id == id);
+
+
+        public List<BookModel> SearchBook(string title, string authorName)
+        {
+            return DataSource().Where(x => x.Title.Contains(title) &&
+            x.Author.Contains(authorName)).ToList();
         }
 
-        [Route("book-details/{id:int:min(1)}", Name = "bookDetailsRoute")]
-        public async Task<ViewResult> GetBook(int id)
+
+
+
+
+
+        private List<BookModel> DataSource()
         {
-            var data = await _bookRepository.GetBookById(id);
-
-            return View(data);
-        }
-
-        public List<BookModel> SearchBooks(string bookName, string authorName)
-        {
-            return _bookRepository.SearchBook(bookName, authorName);
-        }
-
-        [Authorize]
-        public async Task<ViewResult> AddNewBook(bool isSuccess = false, int bookId = 0)
-        {
-            var model = new BookModel();
-
-            ViewBag.IsSuccess = isSuccess;
-            ViewBag.BookId = bookId;
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddNewBook(BookModel bookModel)
-        {
-            if (ModelState.IsValid)
+            return new List<BookModel>()
             {
-                if (bookModel.CoverPhoto != null)
+                new BookModel()
                 {
-                    string folder = "books/cover/";
-                    bookModel.CoverImageUrl = await UploadImage(folder, bookModel.CoverPhoto);
+                    Id = 1,
+                    Title = "Achievement at National hackathon",
+                    Author = "Mr. X",
+                    Description = "ver 2000 years old. Richard McClintock, a Latin professor" +
+                " at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the " +
+                "cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum" +
+                " et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renai" +
+                "ssance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from ",
+                    Language = "Bangladesh",
+                    Category = "Mixed",
+                    TotalPages = 1
+                },
+
+
+
+
+
+
+                new BookModel()
+                {
+                    Id = 1,
+                    Title = "Achievement at National Girl hackathon",
+                    Author = "Mr. Y",
+                    Description = "words which don't look even slightly believable. If y" +
+                "ou are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum g" +
+                "enerators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a",
+                    Language = "Bangladesh",
+                    Category = "Women",
+                    TotalPages = 2
+                },
+
+
+
+
+
+
+
+                new BookModel()
+                {
+                    Id = 1,
+                    Title = "Achievement at HackMIT",
+                    Author = "Mr. Z",
+                    Description = "quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam vol" +
+            "uptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro qui" +
+            "squam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore mag" +
+            "nam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commod" +
+            "i consequatur? Quis autem vel eum iure reprehenderit qui in e",
+                    Language = "US",
+                    Category = "Mixed",
+                    TotalPages = 5
+                },
+
+
+
+
+
+
+                new BookModel()
+                {
+                    Id = 1,
+                    Title = "Achievement at HackZurich",
+                    Author = "Mr. A",
+                    Description = " consequences that are extremely painful. Nor again is there anyone" +
+            " who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can p" +
+            "rocure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from" +
+            " it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has",
+                    Language = "Switzerland",
+                    Category = "Mixed",
+                    TotalPages = 5
                 }
 
-                if (bookModel.GalleryFiles != null)
-                {
-                    string folder = "books/gallery/";
-
-                    bookModel.Gallery = new List<GalleryModel>();
-
-                    foreach (var file in bookModel.GalleryFiles)
-                    {
-                        var gallery = new GalleryModel()
-                        {
-                            Name = file.FileName,
-                            URL = await UploadImage(folder, file)
-                        };
-                        bookModel.Gallery.Add(gallery);
-                    }
-                }
-
-                if (bookModel.BookPdf != null)
-                {
-                    string folder = "books/pdf/";
-                    bookModel.BookPdfUrl = await UploadImage(folder, bookModel.BookPdf);
-                }
-
-                int id = await _bookRepository.AddNewBook(bookModel);
-                if (id > 0)
-                {
-                    return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
-                }
-            }
-
-            return View();
-        }
-
-        private async Task<string> UploadImage(string folderPath, IFormFile file)
-        {
-
-            folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;
-
-            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
-
-            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-            return "/" + folderPath;
+            };
         }
     }
 }

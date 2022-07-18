@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bit2Byte.Controllers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bit2Byte.Models;
 
@@ -13,7 +14,7 @@ public class BookModel
     [StringLength(500)]
     public string Description { get; set; }
     public string Category { get; set; }
-    //[Required(ErrorMessage = "Please choose the language of your book")]
+    [Required(ErrorMessage = "Please choose the language of your book")]
     public int LanguageId { get; set; }
     public string Language { get; set; }
 

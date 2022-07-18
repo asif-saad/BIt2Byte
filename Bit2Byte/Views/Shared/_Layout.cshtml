@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-    <title>Bit2Byte</title>
+    <title>@ViewData["Title"] | Bit2Byte</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Bit2Byte.styles.css" asp-append-version="true" />
@@ -51,8 +51,8 @@
             <div class="collapse navbar-collapse mb-3" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="navbar-underline nav-item nav-link" href="/">Home</a>
-                    <a class="navbar-underline nav-item nav-link" href="/Book/GetAllBooks">Events</a>
-                    <a class="navbar-underline nav-item nav-link" href="/Home/Achievements">Achievements</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Home/Events">Events</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Book/GetAllBooks">Achievements</a>
                     <a class="navbar-underline nav-item nav-link" href="/Home/About">About</a>
                     <a class="navbar-underline nav-item nav-link" href="/Home/Contact">Contact</a>
                   
@@ -87,6 +87,10 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
         @await RenderSectionAsync("Scripts", required: false)
 
       
