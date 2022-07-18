@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<Bit2Byte.Models.BookModel>
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="container">
+    <h3 class="display-4"> All Events</h3>
+    <div class="row">
+
+        @foreach(var book in Model)
+        {
+            <div class="col-md-4 d-block d-lg-flex">
+
+
+                <div class="card mb-4 shadow-sm">
+
+                    <svg class="bd-placeholder-mg card-img-top" width="100%"
+                         height="224" xmlns="#" />
+
+                    <div class="card-body">
+
+                        <h3 class="card-title"> 
+                            @book.Title </h3>
+
+
+
+                        <p class="card-text">
+                            @book.Description
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="#" classs="btn btn-sm btn-outline-secondary">
+                                    View details
+                                </a>
+                            </div>
+
+                            <small class="text-muted">@book.Author</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+     
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Bit2Byte</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Bit2Byte.styles.css" asp-append-version="true" />
+
+
+    <style>
+        .navbar-underline:hover{
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            background: #89CFF0;
+            border-radius:5px;
+            margin-left: 10px;
+            color: #000;
+            transform: scale(1.1);
+
+        }
+
+        
+</style>
+
+
+</head>
+
+
+
+
+
+
+
+
+<body class="py">
+    <div class="container">
+
+    <header>    
+
+        <nav class="container justfiy-content-center navbar navbar-expand-lg navbar-light bg-light align-content-center py-3 px-5">
+            <a class="navbar-brand" href="/">
+
+                <img src="~/images/logo.jpg" alt="logo" width="50" height="50"  />
+                Bit2Byte
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mb-3" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="navbar-underline nav-item nav-link" href="/">Home</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Book/GetAllBooks">Events</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Home/Achievements">Achievements</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Home/About">About</a>
+                    <a class="navbar-underline nav-item nav-link" href="/Home/Contact">Contact</a>
+                  
+
+
+                </div>
+            </div>
+
+            <form class="form-inline mb-3">
+                        <button class="btn btn-outline-success mr-sm-2 my-1" type="button">Sign Up</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button">Log In</button>
+                    </form>
+        </nav>
+
+    </header>
+
+    </div>
+
+    <main role="main" class="pb-3" >
+        @RenderBody()
+    </main>
+
+
+        <footer>
+
+            <div class="border-top footer text-muted text-center">
+                <div class="container">
+                    Copyright &copy; Bit2Byte @DateTime.Now.Year
+                </div>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+
+      
+</body>
+
+</html>
