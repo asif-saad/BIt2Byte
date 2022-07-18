@@ -1,12 +1,64 @@
-﻿using Bit2Byte.Models;
+﻿using Bit2Byte.Data;
+using Bit2Byte.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bit2Byte.Controllers
 {
     public class BookRepository
     {
-        public List<BookModel> GetAllBooks()
+        private readonly AchievementContext _context = null;
+
+        public BookRepository(AchievementContext context)
         {
-            return DataSource();
+            _context = context;
+        }
+
+
+        public async Task<int> AddNewAchievement(BookModel model)
+        {
+            var newAchievement = new Achievement()
+            {
+                Author = model.Author,
+                CreatedOn = DateTime.UtcNow,
+                Description = model.Description,
+                Title = model.Title,
+                TotalPages = (int)model.TotalPages,
+                UpdatedOn = DateTime.UtcNow,
+
+            };
+
+
+            _context.Achievements.AddAsync(newAchievement);
+            await _context.SaveChangesAsync();
+
+
+            return newAchievement.Id;
+
+
+
+
+        }
+        public async Task<List<BookModel>> GetAllBooks()
+        {
+            var achieves = new List<BookModel>();
+            var allacheives = await _context.Achievements.ToListAsync();
+            if (allacheives?.Any() == true)
+            {
+                foreach (var achieve in allacheives)
+                {
+                    achieves.Add(new BookModel()
+                    {
+                        Author = achieve.Author,
+                        Category = achieve.Category,
+                        Description = achieve.Description,
+                        Id = achieve.Id,
+                        Language = achieve.Language,
+                        Title = achieve.Title,
+                        TotalPages = achieve.TotalPages
+                    });
+                }
+            }
+            return achieves;
         }
 
 

@@ -7,12 +7,12 @@ namespace Bit2Byte.Controllers
     {
         private readonly BookRepository _bookRepository = null;
 
-        public BookController()
+        public BookController(BookRepository bookRepository)
         {
-            _bookRepository = new BookRepository();
+            _bookRepository = bookRepository;
 
         }
-        public ViewResult GetAllBooks()
+        public async Task<ViewResult> GetAllBooks()
         {
             var data = _bookRepository.GetAllBooks();
             return View(data);
@@ -37,6 +37,30 @@ namespace Bit2Byte.Controllers
         public List<BookModel> SearchBooks(string bookName, string authorName)
         {
             return _bookRepository.SearchBook(bookName, authorName);
+        }
+
+
+        public ViewResult AddnewAchievement(bool isSuccess = false, int bookId = 0)
+        {
+            ViewBag.IsSuccess = isSuccess;
+            ViewBag.BookId = bookId;
+            return View();
+        }
+
+        // we can return anyview with IActionResult
+        [HttpPost]
+        public async Task<IActionResult> AddnewAchievement(BookModel bookmodel)
+        {
+            //_bookRepository.AddNewAchievement(bookmodel);
+
+
+            int id = await _bookRepository.AddNewAchievement(bookmodel);
+            if (id > 0)
+            {
+                return RedirectToAction(nameof(AddnewAchievement), new { isSuccess = true });
+            }
+            return View();
+
         }
     }
 }

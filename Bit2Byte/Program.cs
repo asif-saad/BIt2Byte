@@ -1,10 +1,19 @@
+using Bit2Byte.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddDbContext<AchievementContext>(options => options.UseSqlServer("Server=.;Database=Bit2Byte;Integrated Security=True"));
+
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
 #if DEBUG
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
+
+builder.Services.AddScoped<BookRepository, BookRepository>();
 
 var app = builder.Build();
 
