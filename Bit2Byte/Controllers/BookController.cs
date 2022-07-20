@@ -12,26 +12,53 @@ namespace Bit2Byte.Controllers
             _bookRepository = bookRepository;
 
         }
+
+
+
+
+
+
+
         public async Task<ViewResult> GetAllBooks()
         {
-            var data = _bookRepository.GetAllBooks();
+            var data = await _bookRepository.GetAllBooks();
             return View(data);
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
         [Route("achievement-details/{id}", Name = "AchievementDetailsRoute")]
-        public ViewResult GetBook(int id, string NameofBook)
+        public async Task<ViewResult> GetBook(int id, string NameofBook)
         {
-            //var data = _bookRepository.GetBookById(id);
-            //return View(data);
-            dynamic data = new System.Dynamic.ExpandoObject();
-            data.book = _bookRepository.GetBookById(id);
-            data.Name = "test";
+            var data = await _bookRepository.GetBookById(id);
+            //dynamic data = new System.Dynamic.ExpandoObject();
+            //data.book = _bookRepository.GetBookById(id);
+            //data.Name = "test";
+
             return View(data);
             //return View(_bookRepository.GetBookById(id));
 
             //return _bookRepository.GetBookById(id);
         }
+
+
+
+
+
+
+
+
+
 
 
         public List<BookModel> SearchBooks(string bookName, string authorName)
@@ -40,16 +67,28 @@ namespace Bit2Byte.Controllers
         }
 
 
-        public ViewResult AddnewAchievement(bool isSuccess = false, int bookId = 0)
+
+
+
+
+
+
+
+
+
+
+        public ViewResult AddNewAchievement(bool isSuccess = false, int bookId = 0)
         {
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
             return View();
         }
 
+
+
         // we can return anyview with IActionResult
         [HttpPost]
-        public async Task<IActionResult> AddnewAchievement(BookModel bookmodel)
+        public async Task<IActionResult> AddNewAchievement(BookModel bookmodel)
         {
             //_bookRepository.AddNewAchievement(bookmodel);
 
@@ -57,7 +96,7 @@ namespace Bit2Byte.Controllers
             int id = await _bookRepository.AddNewAchievement(bookmodel);
             if (id > 0)
             {
-                return RedirectToAction(nameof(AddnewAchievement), new { isSuccess = true });
+                return RedirectToAction(nameof(AddNewAchievement), new { isSuccess = true, bookId = 1 });
             }
             return View();
 

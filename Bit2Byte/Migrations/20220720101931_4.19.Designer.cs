@@ -4,6 +4,7 @@ using Bit2Byte.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bit2Byte.Migrations
 {
     [DbContext(typeof(AchievementContext))]
-    partial class AchievementContextModelSnapshot : ModelSnapshot
+    [Migration("20220720101931_4.19")]
+    partial class _419
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,7 @@ namespace Bit2Byte.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoverImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedOn")
@@ -51,6 +54,7 @@ namespace Bit2Byte.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LanguageId")

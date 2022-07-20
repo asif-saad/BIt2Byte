@@ -1,3 +1,4 @@
+using Bit2Byte.Controllers;
 using Bit2Byte.Data;
 using Microsoft.EntityFrameworkCore;
 

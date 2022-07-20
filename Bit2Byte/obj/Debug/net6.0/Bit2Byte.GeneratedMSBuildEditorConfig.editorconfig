@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\Bit2Byte\Bit2Byte\Bit2Byte
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Bit2Byte/Bit2Byte/Bit2Byte/Views/Book/AddNewAchievement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xBZGROZXdBY2hpZXZlbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Bit2Byte/Bit2Byte/Bit2Byte/Views/Book/GetAllBooks.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xHZXRBbGxCb29rcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -8,10 +8,26 @@ namespace Bit2Byte.Controllers
     {
         private readonly AchievementContext _context = null;
 
+
+
+
+
+
+
+
+
+
         public BookRepository(AchievementContext context)
         {
             _context = context;
         }
+
+
+
+
+
+
+
 
 
         public async Task<int> AddNewAchievement(BookModel model)
@@ -22,13 +38,14 @@ namespace Bit2Byte.Controllers
                 CreatedOn = DateTime.UtcNow,
                 Description = model.Description,
                 Title = model.Title,
-                TotalPages = (int)model.TotalPages,
+                Language = model.Language,
+                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
                 UpdatedOn = DateTime.UtcNow,
 
             };
 
 
-            _context.Achievements.AddAsync(newAchievement);
+            await _context.Achievements.AddAsync(newAchievement);
             await _context.SaveChangesAsync();
 
 
@@ -62,7 +79,42 @@ namespace Bit2Byte.Controllers
         }
 
 
-        public BookModel GetBookById(int id) => DataSource().FirstOrDefault(x => x.Id == id);
+
+
+
+
+
+
+
+
+
+        public async Task<BookModel> GetBookById(int id)
+        {
+            var data = await _context.Achievements.FindAsync(id);
+            if (data != null)
+            {
+                var achieveDetails = new BookModel()
+                {
+                    Author = data.Author,
+                    Category = data.Category,
+                    Description = data.Description,
+                    Id = data.Id,
+                    Language = data.Language,
+                    Title = data.Title,
+                    TotalPages = data.TotalPages
+                };
+                return achieveDetails;
+            }
+            return null;
+        }
+
+
+
+
+
+
+
+
 
 
         public List<BookModel> SearchBook(string title, string authorName)
@@ -70,6 +122,15 @@ namespace Bit2Byte.Controllers
             return DataSource().Where(x => x.Title.Contains(title) &&
             x.Author.Contains(authorName)).ToList();
         }
+
+
+
+
+
+
+
+
+
 
 
 
