@@ -1,5 +1,6 @@
 using Bit2Byte.Controllers;
 using Bit2Byte.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,20 @@ builder.Services.AddDbContext<AchievementContext>(options => options.UseSqlServe
 
 // Add services to the container.
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AchievementContext>();
+
 builder.Services.AddControllersWithViews();
 #if DEBUG
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+
+
+
+/* this is disable client side validation
+builder.Services.AddRazorPages().AddViewOptions(option =>
+{
+    option.HtmlHelperOptions.ClientValidationEnabled = false;
+});*/
 #endif
 
 builder.Services.AddScoped<BookRepository, BookRepository>();
@@ -35,6 +47,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

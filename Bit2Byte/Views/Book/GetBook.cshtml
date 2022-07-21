@@ -5,30 +5,30 @@
 
     ViewData["Title"] = "Achievement detail ";
 }
-@*@model BookModel*@
+@model BookModel
 
 
-    <div class="container">
-       @* <h1> @Model.book.Title</h1>
+    <div class="container py-4">
+        @*<h1> @Model.Title</h1>
         <h3 class="display-4">Achievement details</h3>*@
         <div class="row py-4">
             <div class="col-md-6">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
 
-                     @*   @for (int i = 0; i < Model.book.Gallery.Count(); i++)
+                        @for (int i = 0; i < Model.Gallery.Count(); i++)
                         {
                             <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i==0 ? "active" : "") "></li>
                         }
                     </ol>
-                    *@
+                    
                     <div class="carousel-inner">
-                   @*   @for (int i = 0; i < Model.book.Gallery.Count(); i++)
+                      @for (int i = 0; i < Model.Gallery.Count(); i++)
                         {
                             <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
-                                <img class="d-block w-100" src="@Model.book.Gallery[i].URL" alt="@Model.book.Gallery[i].Name">
+                                <img class="d-block w-100" src="@Model.Gallery[i].URL" alt="@Model.Gallery[i].Name">
                             </div>
-                        }*@  
+                        }
 
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -44,21 +44,21 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>@Model.book.Title</h1>
+                        <h1>@Model.Title</h1>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12 text-primary">
-                        <span class="label label-primary">By: </span>
-                        <span class="monospaced">@Model.book.Author</span>
+                        <span class="label label-primary">Team Name: </span>
+                        <span class="monospaced">@Model.Author</span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <p class="description">
-                            @Model.book.Description
+                            @Model.Description
                         </p>
                     </div>
                 </div>
@@ -74,9 +74,9 @@
                 <hr />
 
                 <ul class="list-group">
-                    <li class="list-group-item"><span class="font-weight-bold">Genre - </span> @Model.book.Category</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Placement - </span> @Model.book.TotalPages</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Host Country - </span> @Model.book.Language</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Genre - </span> @Model.Category</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Placement - </span> @Model.TotalPages</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Host Country - </span> @Model.Language</li>
                 </ul>
             </div>
         </div>
@@ -89,10 +89,10 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                       <embed src="@Model.book.BookPdfUrl" class="w-100"/>
-                        <iframe src="@Model.book.BookPdfUrl" class="w-100"></iframe>
-                    </div>
+                    @*<div class="modal-body">
+                       <embed src="@Model.BookPdfUrl" class="w-100"/>
+                        <iframe src="@Model.BookPdfUrl" class="w-100"></iframe>
+                    </div>*@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>

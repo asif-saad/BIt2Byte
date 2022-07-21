@@ -1,5 +1,4 @@
 ﻿using Bit2Byte.Controllers;
-using Bit2Byte.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bit2Byte.Models;
@@ -13,7 +12,7 @@ public class BookModel
     [StringLength(100, MinimumLength = 5)]
     [Required(ErrorMessage = "Please enter the title of your book")]
     [Display(Name = "Event Name")]
-    [MyCustomValidationAttribute(text = "Testing")]
+    //[MyCustomValidationAttribute("Testing")]
     public string Title { get; set; }  // need this
 
 
@@ -42,8 +41,8 @@ public class BookModel
 
 
 
-    [Required(ErrorMessage = "Please choose the language of your book")]
-    public int LanguageId { get; set; }
+    /*[Required(ErrorMessage = "Please choose the language of your book")]
+    public int LanguageId { get; set; }*/
 
 
 
@@ -112,7 +111,7 @@ public class BookModel
 
 
 
-    [Display(Name = "Upload your book in pdf format")]
+    /*[Display(Name = "Upload your book in pdf format")]
     [Required]
     public IFormFile BookPdf { get; set; }
 
@@ -121,5 +120,5 @@ public class BookModel
 
 
 
-    public string BookPdfUrl { get; set; }
+    public string BookPdfUrl { get; set; }*/
 }

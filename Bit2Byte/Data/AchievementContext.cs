@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bit2Byte.Data
 {
-    public class AchievementContext : DbContext
+    public class AchievementContext : IdentityDbContext
     {
         public AchievementContext(DbContextOptions<AchievementContext> options)
             : base(options)
@@ -12,6 +13,9 @@ namespace Bit2Byte.Data
 
 
         public DbSet<Achievement> Achievements { get; set; }
+
+
+        public DbSet<BookGallery> BookGallery { get; set; }
 
 
     }

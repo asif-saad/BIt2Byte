@@ -44,6 +44,18 @@ namespace Bit2Byte.Controllers
 
             };
 
+            newAchievement.bookGallery = new List<BookGallery>();
+
+
+            foreach (var file in model.Gallery)
+            {
+                newAchievement.bookGallery.Add(new BookGallery()
+                {
+                    Name = file.Name,
+                    URL = file.URL
+                });
+            }
+
 
             await _context.Achievements.AddAsync(newAchievement);
             await _context.SaveChangesAsync();
@@ -90,22 +102,29 @@ namespace Bit2Byte.Controllers
 
         public async Task<BookModel> GetBookById(int id)
         {
-            var data = await _context.Achievements.FindAsync(id);
-            if (data != null)
-            {
-                var achieveDetails = new BookModel()
+            return await _context.Achievements.Where(x => x.Id == id)
+                .Select(book => new BookModel()
                 {
-                    Author = data.Author,
-                    Category = data.Category,
-                    Description = data.Description,
-                    Id = data.Id,
-                    Language = data.Language,
-                    Title = data.Title,
-                    TotalPages = data.TotalPages
-                };
-                return achieveDetails;
-            }
-            return null;
+                    Author = book.Author,
+                    Category = book.Category,
+                    Id = book.Id,
+                    Language = book.Language,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl,
+                    Gallery = book.bookGallery.Select(g => new GalleryModel()
+                    {
+                        Id = g.Id,
+                        Name = g.Name,
+                        URL = g.URL
+                    }).ToList()
+
+
+
+
+
+                }).FirstOrDefaultAsync();
+
         }
 
 

@@ -552,3 +552,4 @@ D:\Bit2Byte\Bit2Byte\Bit2Byte\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Ex
 D:\Bit2Byte\Bit2Byte\Bit2Byte\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 D:\Bit2Byte\Bit2Byte\Bit2Byte\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 D:\Bit2Byte\Bit2Byte\Bit2Byte\obj\Debug\net6.0\Bit2Byte.MvcApplicationPartsAssemblyInfo.cs
+D:\Bit2Byte\Bit2Byte\Bit2Byte\bin\Debug\net6.0\libman.json

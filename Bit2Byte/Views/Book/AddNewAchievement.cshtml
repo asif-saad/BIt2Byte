@@ -91,7 +91,14 @@
         </div>
     }
 
-<form method="post" enctype="multipart/form-data" asp-action="AddnewAchievement" asp-controller="Book"> 
+
+    <div class="clearfix" style="display:none">
+  <div class="spinner-border float-end" id="myLoader" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<form method="post" enctype="multipart/form-data" data-ajax-failure="myFailure" data-ajax-loading="#myLoader" data-ajax-complete="myComplete" data-ajax-success="mySuccess" asp-action="AddnewAchievement" asp-controller="Book"> 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     
     @*<div class="form-group">
@@ -123,6 +130,14 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+
+
+    <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
@@ -142,6 +157,8 @@
         </div>
         <span asp-validation-for="CoverPhoto" class="text-danger"></span>
     </div>
+    
+
 
     <div class="form-group">
         <label asp-for="GalleryFiles" class="control-label"></label>
@@ -152,18 +169,42 @@
         <span asp-validation-for="GalleryFiles" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label asp-for="BookPdf" class="control-label"></label>
         <div class="custom-file">
             <input asp-for="BookPdf" class="custom-file-input" id="customFile">
             <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <span asp-validation-for="BookPdf" class="text-danger"></span>
-    </div>
+    </div>*@
+    
+
+
     <div class="form-group">
-        <input type="submit" value="Add book" class="btn btn-primary" />
+        <input type="submit" value="Add" class="btn btn-primary" />
     </div>
 </form>
 </div>
+
+
+@section scripts{
+    <script>
+    function myComplete(data){
+        alert("I am from complete");
+        console.log(data);
+    }
+    function mySuccess(){
+        alert("I am from success");
+        console.log(data);
+    }
+
+    function myFailure(){
+        alert("I am from failure");
+        console.log(data);
+    }
+    </script>
+}
+
+
 
 
